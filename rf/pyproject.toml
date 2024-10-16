@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name =  "{{cookiecutter.project_slug}}"
+description = "{{cookiecutter.project_short_description}}"
+authors = [{name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.11"
+dependencies = [
+]
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["{{cookiecutter.project_slug}}"]
+
+[tool.setuptools.dynamic]
+version = {attr = "{{cookiecutter.project_slug}}.__init__.__version__"}
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.bandit]
+skips = ["B101"]
+
+[tool.ruff]
+line-length = 80
+exclude = ["*_test.py", "docs/**", "examples/**"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+extend-select = [
+  "UP", "I", "PL", "S"
+]
+ignore = ["S301", "PLR0913", "S101", "PLR2004", "S603", "S607"]
