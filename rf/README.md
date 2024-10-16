@@ -22,6 +22,21 @@ command line:
 pip install git+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}@<RELEASE>
 ```
 
+## Development
+
+First install [`rye`](https://rye.astral.sh/) and call
+```shell
+rye sync
+```
+
+You can then add/remove dependencies using
+```shell
+rye add/remove <dependency>
+```
+
+This will create lock files that can be used to reproduce your experimental results..
+
+
 ## Author
 
 {{cookiecutter.full_name}} <a href="mailto:{{cookiecutter.email}}">{{cookiecutter.email}}</a>
