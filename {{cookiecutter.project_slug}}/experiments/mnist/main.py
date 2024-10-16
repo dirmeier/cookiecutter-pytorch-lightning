@@ -7,8 +7,8 @@ from ml_collections import config_flags
 from pytorch_lightning.loggers import WandbLogger, CSVLogger
 
 
-from rf.flow_matching import RectifiedFlowMatching
-from rf.nn.diffusion_transformer import DiT
+from {{cookiecutter.project_slug}}.flow_matching import RectifiedFlowMatching
+from {{cookiecutter.project_slug}}.nn.diffusion_transformer import DiT
 
 from callbacks import get_callbacks
 from trainer import get_trainer
