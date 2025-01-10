@@ -24,14 +24,14 @@ pip install git+https://github.com/{{ cookiecutter.github_username }}/{{ cookiec
 
 ## Development
 
-First install [`rye`](https://rye.astral.sh/) and call
+First install [`uv`](https://docs.astral.sh/uv/) and call
 ```shell
-rye sync
+uv sync
 ```
 
 You can then add/remove dependencies using
 ```shell
-rye add/remove <dependency>
+uv add/remove <dependency>
 ```
 
 This will create lock files that can be used to reproduce your experimental results..
