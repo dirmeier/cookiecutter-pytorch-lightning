@@ -1,6 +1,5 @@
 # {{ cookiecutter.project_title }}
 
-[![status](http://www.repostatus.org/badges/latest/concept.svg)](http://www.repostatus.org/#concept)
 [![ci](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/actions/workflows/ci.yaml/badge.svg)](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/actions/workflows/ci.yaml)
 
 > {{ cookiecutter.project_short_description }}
@@ -35,7 +34,6 @@ uv add/remove <dependency>
 ```
 
 This will create lock files that can be used to reproduce your experimental results..
-
 
 ## Author
 

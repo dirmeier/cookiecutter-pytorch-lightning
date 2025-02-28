@@ -7,8 +7,8 @@ from ml_collections import config_flags
 from pytorch_lightning.loggers import WandbLogger, CSVLogger
 
 
-from {{cookiecutter.project_slug}}.flow_matching import RectifiedFlowMatching
-from {{cookiecutter.project_slug}}.nn.diffusion_transformer import DiT
+from {{cookiecutter.project_slug}} import RectifiedFlowMatching, DenoisingDiffusion
+from {{cookiecutter.project_slug}}.nn import DiT
 
 from callbacks import get_callbacks
 from trainer import get_trainer
@@ -30,6 +30,8 @@ def get_model(config, optimizer):
 
     if config.name == "rectified_flow":
         model = RectifiedFlowMatching(nn, optimizer.params.to_dict())
+    elif config.name == "denoising_diffusion":
+        model = DenoisingDiffusion(nn, optimizer.params.to_dict(), n_sampling_steps=50)
     else:
         raise ValueError("model not recognized")
     return model

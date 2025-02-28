@@ -3,20 +3,25 @@ from pytorch_lightning import LightningModule
 
 
 class RectifiedFlowMatching(LightningModule):
-    def __init__(self, vector_field, optimizer_params,n_sampling: int = 10):
+    """Implements rectified flow matching.
+
+    Uses the parameterization from [1].
+
+    References:
+        [1] Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow.
+          https://arxiv.org/abs/2209.03003
+    """
+    def __init__(self, vector_field, optimizer_params, n_sampling: int = 10):
         super().__init__()
         self.vector_field = vector_field
         self.n_sampling_steps = n_sampling
         self.time_max = 1.0
         self.time_eps = 1e-3
-        self.optimizer_params=optimizer_params
+        self.optimizer_params = optimizer_params
 
     def forward(self, inputs, times, condition):
         ret = self.vector_field(
-            inputs,
-            times * 999.0,
-            condition,
-            return_dict=False
+            inputs, times * 999.0, condition, return_dict=False
         )
         return ret[0]
 
@@ -29,11 +34,7 @@ class RectifiedFlowMatching(LightningModule):
             times.view(inputs.shape[0], 1, 1, 1) * inputs
             + (1.0 - times.view(noise.shape[0], 1, 1, 1)) * noise
         )
-        ret = self(
-            inputs,
-            times,
-            context
-        )
+        ret = self(inputs, times, context)
         target = inputs - noise
         loss = th.mean(th.square(target - ret))
         return loss
@@ -57,20 +58,20 @@ class RectifiedFlowMatching(LightningModule):
             times = times * (self.time_max - self.time_eps) + self.time_eps
             vt = self(
                 samples,
-                th.tensor(times, device=self.device).to(self.dtype).repeat(len(samples)),
-                context
+                th.tensor(times, device=self.device)
+                .to(self.dtype)
+                .repeat(len(samples)),
+                context,
             )
             samples = samples + vt * dt
         return samples
 
     def configure_optimizers(self):
         optimizer = th.optim.Adam(
-            self.parameters(),
-            lr=self.optimizer_params["learning_rate"]
+            self.parameters(), lr=self.optimizer_params["learning_rate"]
         )
         lr_scheduler = th.optim.lr_scheduler.CosineAnnealingLR(
-            optimizer,
-            T_max=self.optimizer_params["max_steps"]
+            optimizer, T_max=self.optimizer_params["max_steps"]
         )
 
         return {

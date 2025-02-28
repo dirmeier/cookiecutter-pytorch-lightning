@@ -13,10 +13,17 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "diffusers>=0.32.2",
+    "matplotlib>=3.10.1",
+    "ml-collections>=1.0.0",
+    "numpy>=2.2.3",
+    "pytorch-lightning>=2.5.0.post0",
+    "torchvision>=0.21.0",
+    "wandb>=0.19.7",
 ]
 dynamic = ["version"]
 
@@ -27,7 +34,7 @@ packages = ["{{cookiecutter.project_slug}}"]
 version = {attr = "{{cookiecutter.project_slug}}.__init__.__version__"}
 
 [tool.uv]
-dev-dependencies = []
+upgrade-package = ["pytorch-lightning", "torch", "torchvision"]
 
 [tool.bandit]
 skips = ["B101"]

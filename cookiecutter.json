@@ -3,7 +3,7 @@
   "email": "mail@mail.com",
   "github_username": "userid",
   "project_title": "Pytorch lightning experiment template",
-  "project_short_description": "A rye package that does nothing so far",
+  "project_short_description": "A PyTorch-Lightning app that does nothing so far",
   "project_slug": "Something like 'pkg'",
   "pypi_username": "{{ cookiecutter.github_username }}",
   "version": "0.0.1",

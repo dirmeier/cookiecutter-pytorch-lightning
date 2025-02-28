@@ -7,10 +7,10 @@ def new_dict(**kwargs):
 
 def get_config():
     config = ml_collections.ConfigDict()
-    config.seed = 1
+    config.seed=1
     image_size=32
     config.model = new_dict(
-        name="rectified_flow",
+        name="denoising_diffusion",
             nn=new_dict(
                 name="dit",
                 architecture=new_dict(
