@@ -13,14 +13,14 @@ class RectifiedFlowMatching(LightningModule):
     """
     def __init__(self, vector_field, optimizer_params, n_sampling: int = 10):
         super().__init__()
-        self.vector_field = vector_field
+        self.score_net = vector_field
         self.n_sampling_steps = n_sampling
         self.time_max = 1.0
         self.time_eps = 1e-3
         self.optimizer_params = optimizer_params
 
     def forward(self, inputs, times, condition):
-        ret = self.vector_field(
+        ret = self.score_net(
             inputs, times * 999.0, condition, return_dict=False
         )
         return ret[0]

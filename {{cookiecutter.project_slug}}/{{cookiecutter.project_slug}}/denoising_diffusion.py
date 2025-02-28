@@ -43,7 +43,7 @@ class DenoisingDiffusion(LightningModule):
         # scale the inputs
         scaled_inputs = inputs * to_output_shape(self.parameterization.c_in(sigma), inputs.dim())
         # compute the score
-        score = self.score_net(scaled_inputs, scaled_noise, context=context)
+        score = self.score_net(scaled_inputs, scaled_noise, context=context, return_dict=False)
         # scale skips and outputs
         out = score * to_output_shape(self.parameterization.c_out(sigma), inputs.dim())
         skip = inputs * to_output_shape(self.parameterization.c_skip(sigma), inputs.dim())

@@ -26,12 +26,12 @@ class Parameterization:
 
 
 class VEParameterization(Parameterization):
-    sigma_min: float = 0.002
-    sigma_max: float = 100.0
+    sigma_min: th.tensor = th.tensor(0.002)
+    sigma_max: th.tensor = th.tensor(100.0)
 
     def sigma(self, n_samples):
         min, max = th.log(self.sigma_min), th.log(self.sigma_max)
-        return th.exp(th.rand(n_samples) * (max - min) + max)
+        return th.exp(min + th.rand(n_samples) * (max - min))
 
     def loss_weighting(self, sigma):
         return th.reciprocal(th.square(sigma))
@@ -50,7 +50,7 @@ class VEParameterization(Parameterization):
 
     def sampling_sigmas(self, n_steps):
         idxs = th.arange(n_steps, dtype=th.float32) / (n_steps - 1)
-        sigmas = (
+        sigmas = th.sqrt(
             th.square(self.sigma_max) *
             th.exp(th.square(self.sigma_min) - th.square(self.sigma_max), idxs)
         )

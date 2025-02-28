@@ -8,20 +8,7 @@
 
 TODO
 
-## Example usage
-
-TODO
-
-## Installation
-
-To install the latest GitHub <RELEASE>, just call the following on the
-command line:
-
-```bash
-pip install git+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}@<RELEASE>
-```
-
-## Development
+## Development and installation
 
 First install [`uv`](https://docs.astral.sh/uv/) and call
 ```shell
@@ -32,6 +19,17 @@ You can then add/remove dependencies using
 ```shell
 uv add/remove <dependency>
 ```
+
+## Example usage
+
+A denoising diffusion model implementation is provided in `experiments/mnist` that can be trained via
+
+```bash
+uv run python experiments/mnist/main.py \
+  --workdir=workdir \
+  --config=experiments/mnist/config.p
+``` 
+
 
 This will create lock files that can be used to reproduce your experimental results..
 
